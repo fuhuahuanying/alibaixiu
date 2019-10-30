@@ -1,5 +1,10 @@
+<script src="/login/status"></script>
+<script>
+  if (!isLogin) location.href = 'login.html';
+</script>
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
   <meta charset="utf-8">
   <title>Dashboard &laquo; Admin</title>
@@ -9,15 +14,18 @@
   <link rel="stylesheet" href="../assets/css/admin.css">
   <script src="../assets/vendors/nprogress/nprogress.js"></script>
 </head>
+
 <body>
-  <script>NProgress.start()</script>
+  <script>
+    NProgress.start()
+  </script>
 
   <div class="main">
     <nav class="navbar">
       <button class="btn btn-default navbar-btn fa fa-bars"></button>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="profile.html"><i class="fa fa-user"></i>个人中心</a></li>
-        <li><a href="login.html"><i class="fa fa-sign-out"></i>退出</a></li>
+        <li id="loginout"><a href="javaScript:;"><i class="fa fa-sign-out"></i>退出</a></li>
       </ul>
     </nav>
     <div class="container-fluid">
@@ -84,6 +92,64 @@
 
   <script src="../assets/vendors/jquery/jquery.js"></script>
   <script src="../assets/vendors/bootstrap/js/bootstrap.js"></script>
-  <script>NProgress.done()</script>
+  <script>
+    NProgress.done()
+  </script>
+  <script>
+    $(function () {
+      //给退出按钮绑定点击事件
+      $('#loginout').on('click', function () {
+        //询问用户是否确认退出
+        var isConfirm = confirm('残忍离开?')
+        //发送ajax请求
+        if (isConfirm) {
+          $.ajax({
+            type: 'post',
+            url:'/logout',
+            success:function(data){
+              // console.log(data);
+              location.href = 'login.html';
+
+            },error:function(){
+              alert('退出失败')
+
+            }
+          })
+        }
+
+
+
+
+
+
+
+
+      })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    })
+  </script>
 </body>
+
 </html>

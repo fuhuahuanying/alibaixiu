@@ -22,12 +22,46 @@
         <label for="password" class="sr-only">密码</label>
         <input id="password" type="password" class="form-control" placeholder="密码">
       </div>
-      <button class="btn btn-primary btn-block">登 录</button>
+      <button class="btn btn-primary btn-block" id="login">登 录</button>
     </div>
   </div>
+  <script src="../assets/vendors/jquery/jquery.min.js"></script>
   <script>
     $(function(){
-      $('.btn').on('click',function(){
+        //给登录按钮绑定点击事件
+      $('#login').on('click',function(){
+        //获取用户输入的邮箱
+        var email = $('#email').val();
+         //获取用户输入的密码
+        var password = $('#password').val();
+        //判断邮箱和密码是否为空
+        if(email.trim().length === 0){
+          alert('请输入邮箱');
+          return;
+        }
+        if(password.trim().length === 0){
+          alert('请输入密码');
+          return;
+        }
+        //发送ajax请求
+        $.ajax({
+          type:'post',
+          url: '/login',
+          data:{
+            password:password,
+            email:email
+          },
+          //后台肯定会返回请求结果,成功,请求成功的后台,如果失败,就给用户提示
+          success:function(data){
+            // console.log(data);
+            location.href = 'index.html';
+          },
+          error:function(){
+            alert('登录失败,请检查邮箱或密码')
+          }
+        })
+
+
         
 
 
