@@ -20,6 +20,7 @@ module.exports = async (req, res) => {
 				const salt = await bcrypt.genSalt(10);
 				const finalPass = await bcrypt.hash(newPass, salt);
 				let user = await User.findByIdAndUpdate(_id, {$set: {password: finalPass}})
+				req.session.userInfo = null;
 				res.send({message: '密码修改成功'});
 			}else {
 				res.status(400).send({message: '两次新密码输入的不相同'});

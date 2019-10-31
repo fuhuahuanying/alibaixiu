@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
   <meta charset="utf-8">
   <title>Categories &laquo; Admin</title>
@@ -9,8 +10,11 @@
   <link rel="stylesheet" href="../assets/css/admin.css">
   <script src="../assets/vendors/nprogress/nprogress.js"></script>
 </head>
+
 <body>
-  <script>NProgress.start()</script>
+  <script>
+    NProgress.start()
+  </script>
 
   <div class="main">
     <nav class="navbar">
@@ -30,15 +34,15 @@
       </div> -->
       <div class="row">
         <div class="col-md-4">
-          <form>
+          <form id="cateForm">
             <h2>添加分类</h2>
             <div class="form-group">
               <label>名称</label>
-              <input class="form-control" type="text" placeholder="请输入分类名称">
+              <input class="form-control" type="text" placeholder="请输入分类名称" name="title">
             </div>
             <div class="form-group">
               <label>图标</label>
-              <input class="form-control" type="text" placeholder="请输入分类图标类名">
+              <input class="form-control" type="text" placeholder="请输入分类图标类名" name="className">
             </div>
             <div class="form-group">
               <button class="btn btn-primary" type="submit">添加</button>
@@ -57,31 +61,8 @@
                 <th class="text-center" width="100">操作</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td class="text-center"><input type="checkbox"></td>
-                <td>奇趣事</td>
-                <td class="text-center">
-                  <a href="javascript:;" class="btn btn-info btn-xs">编辑</a>
-                  <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
-                </td>
-              </tr>
-              <tr>
-                <td class="text-center"><input type="checkbox"></td>
-                <td>潮科技</td>
-                <td class="text-center">
-                  <a href="javascript:;" class="btn btn-info btn-xs">编辑</a>
-                  <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
-                </td>
-              </tr>
-              <tr>
-                <td class="text-center"><input type="checkbox"></td>
-                <td>奇趣事</td>
-                <td class="text-center">
-                  <a href="javascript:;" class="btn btn-info btn-xs">编辑</a>
-                  <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
-                </td>
-              </tr>
+            <tbody id="categoryBox">
+
             </tbody>
           </table>
         </div>
@@ -127,6 +108,42 @@
   </div>
   <script src="../assets/vendors/jquery/jquery.js"></script>
   <script src="../assets/vendors/bootstrap/js/bootstrap.js"></script>
-  <script>NProgress.done()</script>
+  <script src="../assets/vendors/art-template/template-web.js"></script>
+  <script src="../assets/js/categories.js"></script>
+  <script>
+    NProgress.done()
+  </script>
+  <!-- 分类列表展示 -->
+  <script type="text/html" id="categoryListTpl">
+    {{each data}}
+    <tr>
+      <td class="text-center"><input type="checkbox"></td>
+      <td>{{$value.title}}</td>
+      <td class="text-center">
+        <a href="javascript:;" class="btn btn-info btn-xs edit" data-id="{{$value._id}}">编辑</a>
+        <a href="javascript:;" class="btn btn-danger btn-xs" data-id="{{$value._id}}">删除</a>
+      </td>
+    </tr>
+    {{/each}}
+  </script>
+  <!-- 分页列表编辑功能 -->
+  <script type="text/html" id="modifyCategoryTpl">
+    <form id="modifyCategory" data-id="{{_id}}">
+        <h2>修改分类</h2>
+        <div class="form-group">
+          <label>名称</label>
+          <input class="form-control" type="text" placeholder="请输入分类名称" name="title" value="{{title}}">
+        </div>
+        <div class="form-group">
+          <label>图标</label>
+          <input class="form-control" type="text" placeholder="请输入分类图标类名" name="className" value="{{className}}">
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary" type="submit">修改</button>
+        </div>
+      </form>
+  </script>
+
 </body>
+
 </html>

@@ -19,20 +19,6 @@ const SettingSchema = new Schema({
 		minlength: 2,
 		maxlength: 30
 	},
-	// 站点描述
-	description: {
-		type: String,
-		required: true,
-		minlength: 2,
-		maxlength: 30
-	},
-	// 站点关键字
-	keywords: {
-		type: String,
-		required: true,
-		minlength: 2,
-		maxlength: 30
-	},
 	// 是否开启评论功能
 	comment: {
 		type: Boolean,
@@ -45,7 +31,7 @@ const SettingSchema = new Schema({
 		required: true,
 		default: true
 	}
-}, {versionKey: false});
+}, { versionKey: false });
 
 // 用户集合类
 const Setting = mongoose.model('Setting', SettingSchema);
@@ -55,8 +41,6 @@ const validateSettings = settings => {
 	// 定义对象验证规则
 	const schema = {
 		title: Joi.string().min(2).max(30).required().error(new Error('网站标题不符合验证规则')),
-		description: Joi.string().min(2).max(30).required().error(new Error('网站描述不符合验证规则')),
-		keywords: Joi.string().min(2).max(30).required().error(new Error('网站关键字不符合验证规则')),
 		comment: Joi.boolean().required().error(new Error('是否开启评论功能不符合验证规则')),
 		review: Joi.boolean().required().error(new Error('评论必须经过人工审核不符合验证规则')),
 	};

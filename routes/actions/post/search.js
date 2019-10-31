@@ -8,7 +8,7 @@ module.exports = async (req, res) => {
 	if(key.trim().length > 0) {
 		const regex = new RegExp(escapeRegex(key), 'gi');
 		// 根据关键字查询文章
-		const posts = await Post.find({title: regex}).populate('author', '-password').populate('category').select('-content');
+		const posts = await Post.find({title: regex}).populate('author', '-password').populate('category');
 		// 响应
 		res.send(posts);
 	}else {
